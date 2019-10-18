@@ -16,7 +16,6 @@ env.reset()
 #MA: note, not always same start 
 # (sometimes only 1x "2", sometimes 2x "2", sometimes 1x"2" & 1x"4")
 print("The environment is\n")
-print(env)
 done = False
 moves = 0
 
