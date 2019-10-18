@@ -15,7 +15,9 @@ env.seed(i)
 env.reset()
 #MA: note, not always same start 
 # (sometimes only 1x "2", sometimes 2x "2", sometimes 1x"2" & 1x"4")
-print("The environment is\n")
+
 done = False
 moves = 0
-
+while not done:
+    action = 0
+    next_state, reward, done, info = env.step(action)
