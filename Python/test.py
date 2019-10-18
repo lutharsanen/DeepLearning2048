@@ -19,6 +19,7 @@ if __name__ == '__main__':
   moves = 0
   action_set = [0,1,2,3]
   while not done:
+    ## Cmt Ma: Verstehe den code nicht...Output scheint inkonsistent
     action = 0
     prev_state = next_state
     next_state, reward, done, info = env.step(action)
