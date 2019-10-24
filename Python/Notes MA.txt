@@ -19,18 +19,18 @@ self.action_space	"the action space, but always defined as 'spaces.Discrete(4)'"
 	how to exclude non-feasible actions? how to update state/observation specific action_space to learn which are unfeasible?
 		possible starts like in MA.V1, line 29: if/while np.all(prev_state==next_state):'
 			or like in test.py, line 28: 'while np.array_equal(prev_state,next_state)' 
-	see env.py, 66-78:	for action in [0, 1, 2, 3]:
-      					rotated_obs = np.rot90(copy_board, k=action)
-      					_, updated_obs = self._slide_left_and_merge(rotated_obs)
-      					if not updated_obs.all():
-        					return False
+see env.py, 66-78:	for action in [0, 1, 2, 3]:
+      				rotated_obs = np.rot90(copy_board, k=action)
+      				_, updated_obs = self._slide_left_and_merge(rotated_obs)
+      				if not updated_obs.all():
+        				return False
 			--> do we need to update the 'is_done(self)' definition in the environment? dont think...
 				can we incorporate it through the "False" return in the "done = self.is_done()" part of output? hard?
-				rather incorporate test as above?
+				rather incorporate test as above? "is.done" rather check for "episode finished" i think
 
 no need for coding random seed generation, already done so (47-49 in env.py)
 
-Random generatir of tiles:
+Random generator of tiles:
 starts with 2 tiles: (lines 81 ff.)
 probabilistic generator of [2,4] with probs [0.9, 0.1] (lines 94 ff.)
 --> "means 1% probabiility of starting with 2x4, 81% of starting with 2x2 and 18% of starting with 1x2 & 1x4"
