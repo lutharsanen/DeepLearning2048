@@ -44,7 +44,7 @@ while not done:
         value[1] += 1
         SARS[key] = json.dumps(value)
       else:
-        value = json.dumps({'reward': int(reward)-100, 'count': 1})
+        value = json.dumps({'reward': int(reward)-100, 'count': 1, 'invalid': True, 'Q^': 0})
         #json did not support initial format of reward (int64).
         #no fear of overflow. python 3 int is limitless, liek long in python 2. (e.g. https://stackoverflow.com/questions/7604966/maximum-and-minimum-values-for-ints)
         # but enough memory for complete table?
@@ -62,12 +62,14 @@ while not done:
       value[1] += 1
       SARS[key] = json.dumps(value)
     else:
-      value = json.dumps({'reward': int(reward), 'count': 1})
+      value = json.dumps({'reward': int(reward), 'count': 1, 'invalid': False, 'Q^': 0})
       SARS[key] = json.dumps(value)
     moves += 1
     prev_state = next_state
     # above "tolist" from https://stackoverflow.com/questions/26646362/numpy-array-is-not-json-serializable
     # reverse function: prev_state = np.array(key[0])
+    # "invalid" added to later define state specific action_spaces --> then, negativ reward for unfesaible moves not needed
+    # Q^ added as zero, arbitrary start
 
     print('Next Action: "{}"\n\nReward: {}'.format(
       gym_2048.Base2048Env.ACTION_STRING[action], reward)) #dont save action as string, but as discrete number. (just action?)
