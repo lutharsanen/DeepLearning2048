@@ -35,8 +35,8 @@ while not done:
       #MA: idea:add negative reawrd of -100 if this happens. should disincentivize "unfeasible moves" quickly
       #update SARS tuple. to be implemented:
       #   only 1 observation is needed to exlude it from future exploration. bigger negativ reward?
-      #   alternative idea to disincentives, define proper action sets (env.action_space is always discrete(4) and anyway needs mutation. reconstruct?): 
-      #     e.g. add state specific action set to SARS dictionary and update accordingly
+      #   alternative idea to disincentivize, define proper action sets (env.action_space is always discrete(4) and anyway needs mutation. reconstruct?): 
+      #     e.g. add state specific action set to SARS dictionary and update accordingly (i.e. "invalidity" dummy added to state-action pairs?)
       key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
       if key in SARS:
         value_string = SARS[key]
@@ -47,6 +47,7 @@ while not done:
         value = json.dumps({'reward': int(reward)-100, 'count': 1})
         #json did not support initial format of reward (int64).
         #no fear of overflow. python 3 int is limitless, liek long in python 2. (e.g. https://stackoverflow.com/questions/7604966/maximum-and-minimum-values-for-ints)
+        # but enough memory for complete table?
         SARS[key] = json.dumps(value)
 
       action = env.action_space.sample() #chose random action, could be maintained to avoid dead ends (but not optimal strategy)
@@ -74,3 +75,6 @@ while not done:
 
 print('\nTotal Moves: {}'.format(moves))
 print(SARS)
+
+
+#MA: this is a tabular gueTD approachss --> generate all possible combinations? change key? do we need a full table für the tabular form?
