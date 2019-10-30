@@ -10,7 +10,8 @@ if __name__ == '__main__':
   #max = 0
   #for i in range(1):
   ###################################  
-  env.seed(random.randint(0,100))
+  #env.seed(random.randint(0,100))
+  env.seed(274)
   env.reset()
   #env.render()
 
@@ -24,10 +25,10 @@ if __name__ == '__main__':
     prev_state = next_state
     next_state, reward, done, info = env.step(action)
     ########edited from Lu#############
-    #temp_action_set = action_set
-    #while np.array_equal(prev_state,next_state):
-    #  action = (action + 1)%4
-    #  next_state, reward, done, info = env.step(action)
+    temp_action_set = action_set
+    while np.array_equal(prev_state,next_state):
+      action = (action + 1)%4
+      next_state, reward, done, info = env.step(action)
        ###################################  
     moves += 1
 
