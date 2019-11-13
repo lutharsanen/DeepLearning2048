@@ -59,8 +59,15 @@ while episode < 10:
 # Q^ added as zero, arbitrary pessimistic start
 	episode += 1
 	env.reset()
-with open('sars.json',"w") as f:
-  f.write(str(SARS))
+
+
+with open('sars.json') as f:
+    data = json.load(f)
+
+data.update(SARS)
+
+with open('sars.json', 'w') as f:
+    json.dump(data, f)
 
 
 
