@@ -1,5 +1,3 @@
-# MA: own retry to understand code...
-# #MA: needed imports/environments
 import gym
 import gym_2048
 import random
@@ -55,9 +53,14 @@ while not done:
 
       action = env.action_space.sample() #chose random action, could be maintained to avoid dead ends (but not optimal strategy)
       next_state, reward, done, info = env.step(action)
+    
+    key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
+    value_string = SARS[key]
+    print(type(value_string))
+
 
     
-    #update SARS tuple of successfull move.
+    """ #update SARS tuple of successfull move.
     key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
     if key in SARS:
       value_string = SARS[key]
@@ -85,7 +88,4 @@ with open('sars.json',"w") as f:
   f.write(SARS)
 
 print(type(SARS))
-print(type(value))
-
-
-#MA: this is a tabular gueTD approachss --> generate a
+print(type(value)) """

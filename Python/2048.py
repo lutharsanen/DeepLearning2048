@@ -1,5 +1,8 @@
 import gym_2048
 import gym
+import random 
+import numpy as np
+
 
 
 if __name__ == '__main__':
@@ -7,29 +10,37 @@ if __name__ == '__main__':
 
   ########edited from Lu#############
   max = 0
-  for i in range(1):
+  state_nr = 0
+  for i in range(280):
   ###################################  
     env.seed(i)
     env.reset()
     #env.render()
 
+    next_state = 0
     done = False
     moves = 0
+    action_set = [0,1,2,3]
     while not done:
-      action = env.np_random.choice(range(4), 1).item()
+      ## Cmt Ma: Verstehe den code nicht...Output scheint inkonsistent
+      action = 0
+      prev_state = next_state
       next_state, reward, done, info = env.step(action)
-      print(done)
+      ########edited from Lu#############
+      temp_action_set = action_set
+      while np.array_equal(prev_state,next_state):
+        action = (action + 1)%4
+        next_state, reward, done, info = env.step(action)
+        ###################################  
       moves += 1
-
-      #print('Next Action: "{}"\n\nReward: {}'.format(
-      #  gym_2048.Base2048Env.ACTION_STRING[action], reward))
-      #env.render()
 
     ########edited from Lu#############
     if moves > max :
       max = moves
+      state_nr = i
     ###################################
     
-  #print('\nTotal Moves: {}'.format(max))
+  print('\nTotal Moves: {}'.format(max))
+  print(state_nr)
 
-  print('\nTotal Moves: {}'.format(moves))
+  #print('\nTotal Moves: {}'.format(moves))
