@@ -40,8 +40,8 @@ while not done:
       key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
       if key in SARS:
         value_string = SARS[key]
-        value = json.loads(value_string)
-        value[1] += 1
+        value = json.dumps(value_string)
+        value['count'] += 1
         SARS[key] = json.dumps(value)
       else:
         value = json.dumps({'reward': int(reward)-100, 'count': 1, 'invalid': True, 'Q^': 0})
@@ -56,10 +56,12 @@ while not done:
     
     #update SARS tuple of successfull move.
     key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
+    print(type(key))
+    
     if key in SARS:
       value_string = SARS[key]
-      value = json.loads(value_string)
-      value[1] += 1
+      value = json.dumps(value_string)
+      value['count'] += 1
       SARS[key] = json.dumps(value)
     else:
       value = json.dumps({'reward': int(reward), 'count': 1, 'invalid': False, 'Q^': 0})
@@ -77,6 +79,7 @@ while not done:
 
 print('\nTotal Moves: {}'.format(moves))
 print(SARS)
+print(type(SARS[key]))
 
 
 #MA: this is a tabular gueTD approachss --> generate all possible combinations? change key? do we need a full table für the tabular form?
