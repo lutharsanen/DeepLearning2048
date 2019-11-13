@@ -20,7 +20,7 @@ moves = 0
 SARS={}
 
 #Unless absorbing state reached, play...
-while not done:
+while not done and 1==1:
     action = env.action_space.sample()
     env.render()
     next_state, reward, done, info = env.step(action)
@@ -38,13 +38,15 @@ while not done:
       #   alternative idea to disincentivize, define proper action sets (env.action_space is always discrete(4) and anyway needs mutation. reconstruct?): 
       #     e.g. add state specific action set to SARS dictionary and update accordingly (i.e. "invalidity" dummy added to state-action pairs?)
       key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
+      print(key)
       if key in SARS:
         value_string = SARS[key]
-        value = json.dumps(value_string)
+        print(type(value_string))
+        value = json.loads(value_string)
         value['count'] += 1
         SARS[key] = json.dumps(value)
       else:
-        value = json.dumps({'reward': int(reward)-100, 'count': 1, 'invalid': True, 'Q^': 0})
+        value = json.dumps({'reward':int(reward)-100,'count':1,'invalid':True,'Q^':0})
         #json did not support initial format of reward (int64).
         #no fear of overflow. python 3 int is limitless, liek long in python 2. (e.g. https://stackoverflow.com/questions/7604966/maximum-and-minimum-values-for-ints)
         # but enough memory for complete table?
@@ -56,7 +58,7 @@ while not done:
     
     #update SARS tuple of successfull move.
     key = json.dumps({'prev_state': prev_state.tolist(), 'action': action, 'next_state': next_state.tolist()})
-    print(type(key))
+    #print(type(key))
     
     if key in SARS:
       value_string = SARS[key]
@@ -73,13 +75,12 @@ while not done:
     # "invalid" added to later define state specific action_spaces --> then, negativ reward for unfesaible moves not needed
     # Q^ added as zero, arbitrary start
 
-    print('Next Action: "{}"\n\nReward: {}'.format(
-      gym_2048.Base2048Env.ACTION_STRING[action], reward)) #dont save action as string, but as discrete number. (just action?)
+    #print('Next Action: "{}"\n\nReward: {}'.format(
+    #  gym_2048.Base2048Env.ACTION_STRING[action], reward)) #dont save action as string, but as discrete number. (just action?)
     #env.render() #only render here? not needed earlier to check prev_state ==next_state?
 
 print('\nTotal Moves: {}'.format(moves))
-print(SARS)
-print(type(SARS[key]))
+
 
 
 #MA: this is a tabular gueTD approachss --> generate all possible combinations? change key? do we need a full table für the tabular form?
