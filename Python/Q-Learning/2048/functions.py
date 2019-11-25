@@ -29,4 +29,3 @@ def totuple(a):
         return tuple(totuple(i) for i in a)
     except TypeError:
         return a
-

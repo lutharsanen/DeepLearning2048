@@ -52,13 +52,11 @@ for episode in range(EPISODES):
 
             # Current Q value (for current state and performed action)
             current_q = q_table[discrete_state + (action,)]
-            print("old_q: ")
-            print(current_q)
+            
 
             # And here's our equation for a new Q value for current state and action
             new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
-            print("new_q: ")
-            print(new_q)
+            
 
             # Update Q table with new Q value
             q_table[discrete_state + (action,)] = new_q
