@@ -1,6 +1,5 @@
 ################################################################################
-# Description: Module with game logic of 2048 (using OpenAI Gym interface
-#              https://gym.openai.com/)
+# Description: Module with game logic of 2048 (using OpenAI Gym interface https://gym.openai.com/)
 # Author:      Sergio Iommi's mod of https://github.com/rgal/gym-2048
 ################################################################################
 
