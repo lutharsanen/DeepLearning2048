@@ -2,6 +2,7 @@ from keras.model import Sequential
 from keras.layers import Dense, Dropout, Conv2d, MaxPooling2D, Activation, Flatten
 from keras.callback import TensorBoard
 from keras.optimizers import Adam
+
 from collections import deque
 import random
 import time
