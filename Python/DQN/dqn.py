@@ -1,12 +1,18 @@
-from keras.model import Sequential
-from keras.layers import Dense, Dropout, Conv2d, MaxPooling2D, Activation, Flatten
-from keras.callback import TensorBoard
-from keras.optimizers import Adam
-
-from collections import deque
-import random
-import time
 import numpy as np
+import keras.backend.tensorflow_backend as backend
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Activation, Flatten
+from keras.optimizers import Adam
+from keras.callbacks import TensorBoard
+import tensorflow as tf
+from collections import deque
+import time
+import random
+from tqdm import tqdm
+import os
+from PIL import Image
+import cv2
+
 
 REPLAY_MEMORY_SIZE = 50_000
 MIN_REPLAY_MEMORY_SIZE = 1_000
@@ -14,6 +20,7 @@ MODEL_NAME = "256x2"
 MINIBATCH_SIZE = 64
 DISCOUNT = 0.99
 UPDATE_TARGET_EVERY = 5
+
 
 class ModifiedTensorBoard(TensorBoard):
 
@@ -88,8 +95,8 @@ class DQNAgent:
     def update_replay_memory(self, transition):
         self.replay_memory.append(transition)
 
-    def get_qs(self, terminal_state, step):
-        return self.model_predict(np.array(state).reshape(-1, *state.shape)/255)[0]
+    def get_qs(self, terminal_state):
+        return self.model.predict(np.array(state).reshape(-1, *state.shape)/255)[0]
 
 
     def train(self, terminal_state, step):
@@ -130,3 +137,33 @@ class DQNAgent:
             self.target_model.set_weights(self.model.get_weights())
             self.target_update_counter = 0
             
+
+env = gym.make('2048-v0')
+agent = DQNAgent()
+
+for episode in tqdm(range(1, EPISODES+1), ascii= True, unit = "episode"):
+    agent.tensorboard.step = episode
+
+    episode_reward = 0
+    step = 1
+    current_state = env.reset()
+
+
+    done = False
+
+    while not done:
+        if np.random.random() > epsilon:
+            action = np.random.randint(0, env.action_space.n)
+        
+        new_state, reward, done = env.step(action)
+
+        episode_reward += reward
+        if SHOW_PRIVIEW and not episode % AGGREGATE_STATS_EVERY:
+            env.render()
+
+        agent.update_replay_memory((current_state, action, reward, new_state, done))
+
+        current_state = new_state
+
+        step += 1
+
