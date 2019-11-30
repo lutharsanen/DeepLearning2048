@@ -20,7 +20,7 @@ if __name__ == '__main__':
         print(type(observation_trans))
         while not done:
             action = agent.choose_action(observation_trans)
-            observation_ , reward, done, info = env.step(action)
+            observation_ , reward, done, _ = env.step(action)
             score += reward
             observation_trans_ = f.numpy_transformer(observation_)
             agent.remember(observation_trans, action, reward, observation_trans_, done)
