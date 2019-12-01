@@ -3,6 +3,7 @@ import gym_2048
 import random
 import numpy as np
 import functions as func
+import math as m
 
 env = gym.make('2048-v0')
 env.reset()
@@ -16,7 +17,7 @@ SHOW_EVERY = 2000
 
 epsilon = 0.5
 
-
+'''
 #should tinker with 20
 DISCRETE_OS_SIZE = [70] * len(env.observation_space.high)
 discrete_os_win_size = (env.observation_space.high-env.observation_space.low)/ DISCRETE_OS_SIZE
@@ -66,4 +67,8 @@ for episode in range(EPISODES):
             env.render()
             print("You won")
         discrete_state = new_discrete_state
-  
+'''
+
+x = int(env.observation_space.high[0][0])
+
+print(m.log(x,2))
