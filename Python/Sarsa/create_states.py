@@ -21,15 +21,6 @@ def get_all_states(length,base):
     return states
 
 
-def get_all_states_light(length,base):
-    states = []
-    for i0 in range(length):
-        for i1 in range(length):
-            for i2 in range(length):
-                for i3 in range(length):
-                   states.append([base**i0 if i0 !=0 else 0,base**i1 if i1 !=0 else 0,base**i2 if i2!=0 else 0, base **i3 if i3!=0 else 0])
-    return states
-
-states = get_all_states(15,2)
+states = get_all_states(2,2)
 f = open('states.txt', 'w')
 f.write(str(states))

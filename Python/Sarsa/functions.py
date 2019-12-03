@@ -14,7 +14,7 @@ def numpy_transformer(matrix):
     for i in range(len(matrix)):
             for j in range(len(matrix[0])):
                     lst.append(int(matrix[i][j]))
-    return lst
+    return tuple(lst)
 
 def largest_number(env):
     value = env.observation_space.high[0][0]

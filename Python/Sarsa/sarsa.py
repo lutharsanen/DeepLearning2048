@@ -24,7 +24,7 @@ if __name__ == '__main__':
     Q = {}
     for s in states:
         for a in range(4):
-            Q[s,a] = 0
+            Q[tuple(s),a] = 0
 
     numGames = 50
     totalRewards = np.zeros(numGames)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             print('starting game', i)
             game_won = False
             observation = env.reset()
-            s = observation
+            s = f.numpy_transformer(observation)
             rand = np.random.random()
             if rand < (1-EPSILON):
                 a = f.maxAction(Q,s) 
