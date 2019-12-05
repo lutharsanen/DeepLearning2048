@@ -1,6 +1,5 @@
 import gym 
 import numpy as np
-import matplotlib as plt
 import gym_2048
 import random
 import functions2 as f
@@ -18,6 +17,7 @@ if __name__ == '__main__':
     #value we want to reach due to memory restrictions.
     GOAL = 256
     max_value = 0
+    num_won = []
 
     #construct state space
     '''
@@ -36,7 +36,7 @@ if __name__ == '__main__':
             Q[tuple(s),a] = 0
             '''
 
-    numGames = 3000
+    numGames = 300
     totalRewards = []
     for i in range(numGames):
         game_won = False
@@ -94,8 +94,11 @@ if __name__ == '__main__':
         else:
             EPSILON = 0.0002
         totalRewards.append(epRewards)
-        if i%30 == 0:
-            f.
-            #print("you won " + str(won) + " from " + str(i) + " episodes.")
-            #print("MAX is:" + str(max_value))
-print(Q)
+        if i%(numGames//100) == 0:
+            num_won.append(int(won/(numGames//100)))
+    
+    x = [i for i in range(1,101)]
+    f.plotLearning2(x,num_won)
+
+            
+
