@@ -16,7 +16,7 @@ if __name__ == '__main__':
     #this variable counts how many times we have won.
     won = 0
     #value we want to reach due to memory restrictions.
-    GOAL = 2048
+    GOAL = 256
     max_value = 0
 
     #construct state space
@@ -36,7 +36,7 @@ if __name__ == '__main__':
             Q[tuple(s),a] = 0
             '''
 
-    numGames = 300
+    numGames = 3000
     totalRewards = []
     for i in range(numGames):
         game_won = False
@@ -72,7 +72,7 @@ if __name__ == '__main__':
             else: 
                 a_ = np.random.randint(0,4)
             epRewards += reward
-            Q[s,a] = Q[s,a] + ALPHA*(reward + GAMMA*Q[s_,a_] - Q[s,a])
+            Q[s,a] = Q[s,a] + ALPHA*(reward + GAMMA*Q[s_,f.maxAction(Q,s_)] - Q[s,a])
             
             # no more needed. that does not check for validity of move. we incorporated thi in f.choseandcheck
             # s,a = s_,a_
@@ -89,12 +89,13 @@ if __name__ == '__main__':
         if game_won == True:
             won+= 1
 
-        if EPSILON > 0:
+        if EPSILON > 0.0002:
             EPSILON -= 2/(numGames)  
         else:
-            EPSILON = 0
+            EPSILON = 0.0002
         totalRewards.append(epRewards)
         if i%30 == 0:
-            print("you won " + str(won) + " from " + str(i) + " episodes.")
-            print("MAX is:" + str(max_value))
+            f.
+            #print("you won " + str(won) + " from " + str(i) + " episodes.")
+            #print("MAX is:" + str(max_value))
 print(Q)

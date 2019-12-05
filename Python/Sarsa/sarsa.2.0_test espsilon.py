@@ -36,7 +36,7 @@ if __name__ == '__main__':
             Q[tuple(s),a] = 0
             '''
 
-    numGames = 300
+    numGames = 30000
     totalRewards = []
     for i in range(numGames):
         game_won = False
@@ -89,10 +89,10 @@ if __name__ == '__main__':
         if game_won == True:
             won+= 1
 
-        if EPSILON > 0:
+        if EPSILON > 0.0002:
             EPSILON -= 2/(numGames)  
         else:
-            EPSILON = 0
+            EPSILON = 0.0002
         totalRewards.append(epRewards)
         if i%30 == 0:
             print("you won " + str(won) + " from " + str(i) + " episodes.")

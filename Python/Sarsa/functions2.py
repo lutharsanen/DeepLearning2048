@@ -21,7 +21,7 @@ def choseandcheck(Q, a, observation, EPSILON, env, s):
     #print(observation_, '\n\n', observation)
     while observation==observation_:
         #print("REACHED)")
-        Q[s,a] = float(-1000000)
+        Q[s,a] -= 1
         rand = np.random.random()
         if rand < (1-EPSILON):
             a = maxAction(Q,s)
