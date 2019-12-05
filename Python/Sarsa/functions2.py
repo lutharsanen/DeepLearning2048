@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import ast
 
 
@@ -89,8 +89,12 @@ def plotLearning(x, scores, epsilons, filename, lines=None):
 
     plt.savefig(filename)
 
-#f1 = open('states.txt', 'r')
-#mylist = ast.literal_eval(f1.read())
+def plotLearning2(x, y):
+    plt.scatter(x,y, label = 'skitscat', color = 'k', s=25 , marker = 'o')
+    plt.xlabel('Nr Percentils')
+    plt.ylabel('game won in percentage')
+    plt.title('Win-Statistic')
+
 
 
 
