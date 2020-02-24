@@ -6,7 +6,7 @@ For our project, we have used three methods, namely Q-Learning, SARSA and Deep Q
 
 To visualize and interpret the learning process, we are using different graphs and plots. We will divide most of our episodes into groups corresponding to percentiles (always 100 groups). We expect to see an improvement from one batch to the next batch. With our plots we will analyse the win statistics. In each test-run we will define a winning rate - we are going to set a tile number as a goal and count how often the model has achieved this goal. The goal was set at 256 to obtain meaningful win statistics with tabular models. Other plotted statistic will present the maximum value tile reached, the average maximum tile reached, and the average rewards obtained by the interaction with the environment. In all plots, we expect an improvement of the calculated values, especially for the “average reward” statistic (which should be optimized by the models). As a comparison for performance we had an agent act randomly at any point. If they fail to outperform such an agent our models may not have learned much.
 
-### 1.2.2 Q-Learning test series: experimental design &amp; results
+### Q-Learning test series: experimental design &amp; results
 
 Our Q-Learning agents vary along two dimensions. There are two epsilon schemes; whereas one is a monotonously linearly decreasing epsilon, floored at 0.01 the other scheme is a discontinuous epsilon development with multiple discontinuous jumps of epsilon to a higher level. This should reduce the risk of ending up at a non-optimal solution by continuously varying exploration and exploitation. The other varying dimension are the alphas, chosen at 0.1, 0.5 and 0.8. After 5000 training episodes, there are performance tests with 500 episodes. Results are always expressed in percentiles, thus the average result over the percentiles (100 datapoints, in test mode 5 episodes are pooled to one datapoint).
 
@@ -30,7 +30,7 @@ Q-Learning summary table of parametrizations and main performance measures after
 \*The automatic average performance calculations have been added in time for the models with alpha = 0.8 and the random agents. Those numbers do not contain compounded rounding errors.
 \*\*These estimates differ from the manual calculations, by -0.024 (monotonous win %) and +0.01 / -0.23 (non-monotonous win % / avg reward). The effect on the main variable avg reward is negligible, whereas the win % may have lost some comparative power as statistic.
 
-### 1.2.3 Q-Learning test series: comparison
+### Q-Learning test series: comparison
 
 Agents with alpha = 0.1 fail to clearly outperform the random agent (epsilon=1, training) and only slightly outperform randomness by the average reward measure. Nevertheless, Q learning off the random agent outperformed those low alpha models. Alpha = 0.5 and Alpha= 0.8 performed comparably well and both outperformed random agent and Q learning off random agent in all measures. Tabular Q learning does not seem suitable to low levels of alpha, like 0.1, at least early in the learning process.
 
@@ -38,7 +38,7 @@ There does not seem to be a clear favourite among the epsilon schemes. The non-m
 
 Rather surprisingly to us, Q Learning off a random agent is quite successful and with alpha=0.8 is the best performing Q-Learning model. This might suggest that an epsilon decay scheme at a slower rate might be a successful alternative specification, as high epsilons only seem to decrease training performance, but affects less the testing performance with full exploitation.
 
-### 1.2.4 Q-Learning test series: conclusion
+### Q-Learning test series: conclusion
 
 The main problem of Q Learning (or tabular learning in general) in the 2048-game is the vast state space that needs quite some computational power, especially as the game progresses, to keep track of the tabular information. If agents were to reach higher tiles, the possible state space increases exponentially, and our hardware would probably reach its limit.
 
