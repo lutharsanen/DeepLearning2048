@@ -1,4 +1,4 @@
-# DeepLearning2048
+# Report
 
 Our objective was to program an algorithm, which solves the game 2048 with Reinforcement Learning methods. The goal of the game 2048 is to combine two same-value numbered tiles, so that they merge and result in their sum, to finally attain the tile 2048. However, in the game it is possible to attain higher numbers. Nonetheless, after attaining 2048 the player has won the game. 
 
